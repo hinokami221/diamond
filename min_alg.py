@@ -17,17 +17,17 @@ def find_max_mining_path(mine_field):
     dp = np.zeros((layers + 1, layers + 1))
 
     # 初始化dp[0, 0]为mine_field[0, 0]
-    dp[0, 0] = mine_field[0, 0]
+    dp[1, 1] = mine_field[0, 0]
 
     # 填充第一行和第一列的dp值
-    for i in range(1, layers):
-        dp[i, 0] = dp[i - 1, 0] + mine_field[i, 0]  # 第一列只能从上方过来
-        dp[0, i] = dp[0, i - 1] + mine_field[0, i]  # 第一行只能从左边过来
+    for i in range(0, layers):
+        dp[i + 1, 1] = dp[i, 1] + mine_field[i, 0]  # 第一列只能从上方过来
+        dp[1, i + 1] = dp[1, i] + mine_field[0, i]  # 第一行只能从左边过来
 
     # 填充其余位置的dp表
-    for i in range(1, layers + 1):
-        for j in range(1, layers - i + 1):
-            dp[i, j] = mine_field[i, j] + max(dp[i - 1, j], dp[i, j - 1])  # 可以从上方或左方过来
+    for i in range(0, layers):
+        for j in range(0, layers - i):
+            dp[i + 1, j + 1] = mine_field[i, j] + max(dp[i - 1, j], dp[i, j - 1])  # 可以从上方或左方过来
 
     max_mine_value = 0
 
@@ -66,7 +66,7 @@ def print_mining_path(dp):
 
     path.append((max_i, max_j))
 
-    # 从最后一层回溯到第一层，直到到达dp[0, 0]
+    # 从最后一层回溯到第一层，直到到达dp[1, 1]
     while max_i > 0:
         if max_i > 0 and max_j > 0 and dp[max_i - 1, max_j] >= dp[max_i, max_j - 1]:
             max_i -= 1  # 从上方过来
