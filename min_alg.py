@@ -14,7 +14,7 @@ def find_max_mining_path(mine_field):
     layers = mine_field.shape[0]
 
     # 创建一个DP表，dp[i][j]表示到达位置(i, j)的最大矿产值
-    dp = np.zeros((layers + 1, layers + 1))
+    dp = np.zeros((layers + 1, layers + 1), dtype = int)
 
     # 初始化dp[0, 0]为mine_field[0, 0]
     dp[1, 1] = mine_field[0, 0]
@@ -25,14 +25,15 @@ def find_max_mining_path(mine_field):
         dp[1, i + 1] = dp[1, i] + mine_field[0, i]  # 第一行只能从左边过来
 
     # 填充其余位置的dp表
-    for i in range(0, layers):
-        for j in range(0, layers - i):
-            dp[i + 1, j + 1] = mine_field[i, j] + max(dp[i - 1, j], dp[i, j - 1])  # 可以从上方或左方过来
+    for i in range(1, layers):
+        for j in range(1, layers - i):
+            dp[i + 1, j + 1] = mine_field[i, j] + max(dp[i + 1, j], dp[i, j + 1])  # 可以从上方或左方过来
+            print(dp[i + 1][j + 1])
 
     max_mine_value = 0
 
     for i in range(1, layers + 1):
-        for j in range(0, layers - i + 1):
+        for j in range(1, layers - i + 2):
             tmp = dp[i][j]
             if tmp > max_mine_value:
                 max_mine_value = tmp
