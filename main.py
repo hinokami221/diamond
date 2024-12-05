@@ -18,7 +18,7 @@ def main():
     # 打印最大矿产值
     print(f"最大矿产值: {max_mine_value}")
 
-    probe_1(layers, mine_field)
+    #probe_1(layers, mine_field)
 
     # 获取最优路径
     path = print_mining_path(dp)

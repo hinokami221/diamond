@@ -30,8 +30,6 @@ def find_max_mining_path(mine_field):
             if tmp > max_mine_value:
                 max_mine_value = tmp
 
-    print(dp)
-
     return max_mine_value, dp
 
 
@@ -59,7 +57,7 @@ def print_mining_path(dp):
                 max_i = i
                 max_j = j
 
-    path.append((max_i, max_j))
+    path.append((max_i - 1, max_j - 1))
 
     # 从最后一层回溯到第一层，直到到达dp[1, 1]
     while max_i > 0:
