@@ -12,11 +12,13 @@ def generate_mine_field(layers: int):
     mine_field -- 矿产分布图（二维数组）
     """
     np.random.seed(42)  # 保证结果复现
-    mine_field = np.zeros((layers, layers), dtype=int)
+    mine_field = np.zeros((layers + 1, layers + 1), dtype=int)
 
     # 为每个位置生成一个矿产值
-    for i in range(0, layers):
-        for j in range(0, layers - i):  # 只在左上三角区域内生成矿产
-            mine_field[i, j] = np.random.normal(loc=50, scale=10)
+    for i in range(1, layers + 1):
+        for j in range(1, layers - i + 2):  # 只在左上三角区域内生成矿产
+            mine_field[i, j] = np.random.uniform(50, 1000)
+
+    print(mine_field)
 
     return mine_field
