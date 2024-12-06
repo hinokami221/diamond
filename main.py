@@ -27,6 +27,8 @@ def main():
     # 绘制最优路径的矿产分布图
     #plot_optimal_path(mine_field, path)
 
+    # 贪心算法
+    probe_1(layers, mine_field)
 
 if __name__ == "__main__":
     main()
