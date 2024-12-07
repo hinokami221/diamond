@@ -21,7 +21,7 @@ def main():
 
     steps = int(input("请输入蒙图算法预测的步数 (steps): "))
     # 蒙图算法
-    mask_path = probe_m(layers + 1, mine_field, steps)
+    #mask_path = probe_m(layers + 1, mine_field, steps)
 
     visualize_mine_field(mine_field[1:, 1:], dp_path, greedy_path)
 
