@@ -30,7 +30,8 @@ def find_max_mining_path(mine_field):
             if tmp > max_mine_value:
                 max_mine_value = tmp
 
-    return max_mine_value, dp
+    print(f"最大矿产值: {max_mine_value}")
+    return dp
 
 
 def print_mining_path(dp):

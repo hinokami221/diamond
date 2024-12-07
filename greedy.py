@@ -28,7 +28,7 @@ def probe_1(n, map_data):
     # 输出路径时需要减去1
     adjusted_path = [(i - 1, j - 1) for i, j in best_path]  # 适当调整路径上的坐标
 
-    print(f"最大路径和: {ans_probe_1[0]}")
+    print(f"贪心算法最大矿产值: {ans_probe_1[0]}")
     print("贪心算法选择的路径:", adjusted_path)
 
 
