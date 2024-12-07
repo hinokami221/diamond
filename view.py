@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtCore import Qt, QTimer
 
+
 class MineFieldWindow(QMainWindow):
     def __init__(self, mine_field, dp_path=None, greedy_path=None):
         super().__init__()

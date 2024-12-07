@@ -59,7 +59,7 @@ def print_mining_path(dp):
 
     path.append((max_i - 1, max_j - 1))
 
-    # 从最后一层回溯到第一层，直到到达dp[1, 1]
+
     while max_i > 0:
         if max_i > 1 and max_j > 0 and dp[max_i - 1, max_j] >= dp[max_i, max_j - 1]:
             max_i -= 1  # 从上方过来
