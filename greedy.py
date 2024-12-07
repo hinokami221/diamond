@@ -30,3 +30,5 @@ def probe_1(n, map_data):
 
     print(f"最大路径和: {ans_probe_1[0]}")
     print("贪心算法选择的路径:", adjusted_path)
+
+    return adjusted_path
