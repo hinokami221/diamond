@@ -31,5 +31,4 @@ def probe_1(n, map_data):
     print(f"贪心算法最大矿产值: {ans_probe_1[0]}")
     print("贪心算法选择的路径:", adjusted_path)
 
-
     return adjusted_path

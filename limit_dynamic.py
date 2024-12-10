@@ -1,5 +1,7 @@
+import random
 from all_dynamic import find_max_mining_path, print_mining_path
 
+# 探测器
 def dynamic(x, y, steps, n, mine_field):
     """
     动态规划计算在当前坐标 (x, y) 位置下，最多走 `steps` 步的最大收益
@@ -8,6 +10,8 @@ def dynamic(x, y, steps, n, mine_field):
     arr = [[0] * (n + steps + 1) for _ in range(n + steps + 1)]  # 动态规划表格的大小为 n + steps +1
 
     res = 0
+    if steps < 0:
+        return 0
 
     # 如果步数为0时，直接返回当前位置的矿产值
     if steps == 0:
@@ -19,7 +23,7 @@ def dynamic(x, y, steps, n, mine_field):
 
     # 遍历计算每个位置的最大值，动态规划从上方或左方来
     for i in range(x, min(x + steps, n) + 1):  # 限制 i 不超出 n
-        for j in range(y, min(y + steps, n) + 1):  # 限制 j 不超出 n
+        for j in range(y, x + steps + 1):  # 限制 j 不超出 n
             if i == x and j == y:
                 arr[i][j] = mine_field[i][j]  # 起始位置的值
             elif i == x:
@@ -54,11 +58,11 @@ def probe_go(x, y, res, m, n, mine_field, path):
 
     # 向右走
     if x + 1 <= n and y <= n and x + y + 1 <= n + 1:
-        a = dynamic(x + 1, y, steps_possible, n, mine_field)
+        a = dynamic(x + 1, y, steps_possible - 1, n, mine_field)
 
     # 向下走
     if x <= n and y + 1 <= n and x + y + 1 <= n + 1:
-        b = dynamic(x, y + 1, steps_possible, n, mine_field)
+        b = dynamic(x, y + 1, steps_possible - 1, n, mine_field)
 
     # 如果两个方向都不可行，则直接返回当前结果
     if a == 0 and b == 0:
@@ -68,13 +72,11 @@ def probe_go(x, y, res, m, n, mine_field, path):
     if a > b:
         res += mine_field[x + 1][y]
         path.append((x + 1, y))
-        return probe_go(x + 1, y, res, m - 1, n, mine_field, path)
+        return probe_go(x + 1, y, res, m - 1, n, mine_field, path) # 已经走了一步，step - 1
     else:
         res += mine_field[x][y + 1]
         path.append((x, y + 1))
         return probe_go(x, y + 1, res, m - 1, n, mine_field, path)
-
-    return res, path
 
 
 def probe_m(n, mine_field, m):
@@ -102,3 +104,35 @@ def probe_m(n, mine_field, m):
     print("蒙图算法选择的路径：", adjusted_path)
 
     return adjusted_path
+
+# 残缺地图
+def generate_lose_map(mine_field):
+    """
+        随机生成残缺地图
+    """
+    size = len(mine_field[0]) - 1
+    lose_num = random.randint(1, size * size)
+    for i in range(lose_num):
+        lose_x = random.randint(1, size)
+        lose_y = random.randint(1, size)
+        mine_field[lose_x][lose_y] = 0
+
+    return mine_field
+
+
+
+def lose_map(mine_field):
+    """
+        残缺地图情况下的路径选择
+    """
+    # 创建残缺地图
+    lose_map = generate_lose_map(mine_field)
+    print("残缺地图")
+    print(lose_map)
+
+    dp = find_max_mining_path(lose_map)
+    # 获取最优路径
+    dp_path = print_mining_path(dp)
+    print(f"最优路径: {dp_path}")
+
+    return dp_path

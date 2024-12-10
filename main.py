@@ -1,7 +1,7 @@
 from generate_mine import generate_mine_field
 from all_dynamic import find_max_mining_path, print_mining_path
 from greedy import probe_1
-from limit_dynamic import probe_m
+from limit_dynamic import probe_m, lose_map
 from view import visualize_mine_field
 
 
@@ -20,10 +20,16 @@ def main():
     greedy_path = probe_1(layers, mine_field)
 
     steps = int(input("请输入蒙图算法预测的步数 (steps): "))
+
     # 蒙图算法
+    # 探测器
     mask_path = probe_m(layers + 1, mine_field, steps)
 
     visualize_mine_field(mine_field[1:, 1:], dp_path, greedy_path)
+    # 残缺地图
+    lose_mask_path = lose_map(mine_field)
+
+
 
 if __name__ == "__main__":
     main()
